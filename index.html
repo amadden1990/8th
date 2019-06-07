@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head>
+<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+<script async src="//apps.8thwall.com/xrweb?appKey=nZpIbjLUFW1FZNbQmkpu6qGhBqzuncrT2wUnidRSyVlu1JkFfu4HNSuVSXUGBIGwd32iFl"></script> 
+
+
+<script>
+ // Custom AFRAME Component code goes here...
+AFRAME.registerComponent('bg-music',{init: function () {
+//write javascript code here...
+
+var listener = new THREE.AudioListener();
+var pineapple = this.el.object3D;
+pineapple.add(listener);
+
+var sound = new THREE.Audio(listener);
+
+var audioLoader = new THREE.AudioLoader();
+audioLoader.load('audio/pineapple.wav', function(buffer)
+{
+	sound.setBuffer(buffer);
+	sound.setLoop(true);
+	sound.setVolume(0.5);
+	sound.play();
+});
+}
+});
+
+</script>
+</head>
+<body><a-scene>
+<a-assets>
+<a-asset-item id="pineapple_dance" src="models/pineapple_dance.gltf"></a-asset-item>
+<a-mixin id="pineapple_dance-mixin" gltf-model="#pineapple_dance" animation-mixer=" loop: repeat;"></a-mixin>
+
+
+</a-assets>
+
+ 
+
+<a-entity id="new-cylinder-entity " geometry="primitive: cylinder; height:0.0396252; radius:0.5803;" position="-9.5747E-09 0 -1.9149E-08" rotation="0 0 0" material="shader: 
+standard; transparent: false; color: #FF9300;  side: front; " shadow="receive: 
+false; cast: false;" >
+</a-entity>
+
+<a-entity mixin="pineapple_dance-mixin" bg-music ></a-entity>
+
+</a-scene>
+</body>
+</html>
